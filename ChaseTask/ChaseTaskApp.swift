@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
-
 @main
-struct ChaseTaskApp: App {
+struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let locationManager = LocationManager()
+            let weatherService = WeatherService()
+            let weatherViewModel = WeatherViewModel(weatherService: weatherService, locationManager: locationManager)
+            ContentView(viewModel: weatherViewModel)
         }
     }
 }

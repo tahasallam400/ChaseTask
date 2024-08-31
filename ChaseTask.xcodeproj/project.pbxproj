@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2926EC32C83C3C300C65A71 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */; };
+		F2926EC52C83C3D400C65A71 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC42C83C3D400C65A71 /* Main.swift */; };
+		F2926EC72C83C3F900C65A71 /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */; };
+		F2926EC92C83C98000C65A71 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC82C83C98000C65A71 /* WeatherService.swift */; };
+		F2926ECC2C83CB0000C65A71 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926ECB2C83CB0000C65A71 /* WeatherViewModel.swift */; };
 		F2E2BD1A2C82AE4A00A06569 /* ChaseTaskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD192C82AE4A00A06569 /* ChaseTaskApp.swift */; };
 		F2E2BD1C2C82AE4A00A06569 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD1B2C82AE4A00A06569 /* ContentView.swift */; };
 		F2E2BD1E2C82AE4A00A06569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E2BD1D2C82AE4A00A06569 /* Assets.xcassets */; };
@@ -34,6 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
+		F2926EC42C83C3D400C65A71 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
+		F2926EC82C83C98000C65A71 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		F2926ECB2C83CB0000C65A71 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		F2E2BD162C82AE4A00A06569 /* ChaseTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChaseTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E2BD192C82AE4A00A06569 /* ChaseTaskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseTaskApp.swift; sourceTree = "<group>"; };
 		F2E2BD1B2C82AE4A00A06569 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,9 +81,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2926EC02C83C2AE00C65A71 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */,
+				F2926EC42C83C3D400C65A71 /* Main.swift */,
+				F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F2926EC12C83C2C100C65A71 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F2926EC82C83C98000C65A71 /* WeatherService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F2926ECA2C83C9E800C65A71 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F2926ECB2C83CB0000C65A71 /* WeatherViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F2E2BD0D2C82AE4900A06569 = {
 			isa = PBXGroup;
 			children = (
+				F2926ECA2C83C9E800C65A71 /* ViewModel */,
+				F2926EC12C83C2C100C65A71 /* Services */,
+				F2926EC02C83C2AE00C65A71 /* Models */,
 				F2E2BD182C82AE4A00A06569 /* ChaseTask */,
 				F2E2BD292C82AE4A00A06569 /* ChaseTaskTests */,
 				F2E2BD332C82AE4B00A06569 /* ChaseTaskUITests */,
@@ -258,6 +297,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2E2BD1C2C82AE4A00A06569 /* ContentView.swift in Sources */,
+				F2926EC72C83C3F900C65A71 /* WeatherDetail.swift in Sources */,
+				F2926EC32C83C3C300C65A71 /* WeatherResponse.swift in Sources */,
+				F2926ECC2C83CB0000C65A71 /* WeatherViewModel.swift in Sources */,
+				F2926EC52C83C3D400C65A71 /* Main.swift in Sources */,
+				F2926EC92C83C98000C65A71 /* WeatherService.swift in Sources */,
 				F2E2BD1A2C82AE4A00A06569 /* ChaseTaskApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
