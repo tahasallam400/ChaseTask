@@ -1,11 +1,112 @@
-import SwiftUI
-import Combine
 import CoreLocation
+import Combine
+import SwiftUI
+import Foundation
 
-// MARK: - Location Manager
+
+class WeatherViewModel: ObservableObject {
+    // Input
+    @Published var cityName: String = ""
+    
+    // Output
+    @Published var weather: WeatherResponse?
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
+    
+    private var cancellables = Set<AnyCancellable>()
+    let weatherService: WeatherServiceProtocol
+    let locationManager: LocationManager
+    
+    init(weatherService: WeatherServiceProtocol, locationManager: LocationManager) {
+        self.locationManager = locationManager
+        self.weatherService = weatherService
+        loadLastSearchedCity()
+        bindLocationUpdates()
+    }
+    
+    func searchWeather() {
+        guard !cityName.isEmpty else {
+            self.errorMessage = "City name cannot be empty."
+            return
+        }
+        isLoading = true
+        weatherService.fetchWeather(for: cityName)
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                case .finished:
+                    self?.saveLastSearchedCity()
+                    break
+                }
+            }, receiveValue: { [weak self] weather in
+                self?.weather = weather
+            })
+            .store(in: &cancellables)
+    }
+    
+    func searchWeatherByLocation() {
+        let authorizationStatus = locationManager.authorizationStatus
+        
+        switch authorizationStatus {
+        case .notDetermined:
+            // Request permission if not determined
+            locationManager.requestLocationPermission()
+            
+        case .restricted, .denied:
+            // Provide feedback to the user that permission is required
+            self.errorMessage = "Location access is restricted or denied. Please enable location services in settings."
+            
+        case .authorizedWhenInUse, .authorizedAlways:
+            // If authorized, request location
+            locationManager.requestLocation()
+            
+        @unknown default:
+            // Handle unexpected cases
+            self.errorMessage = "An unknown error occurred with location permissions."
+        }
+    }
+    
+    private func bindLocationUpdates() {
+        locationManager.$location
+            .compactMap { $0 }
+            .sink { [weak self] coordinate in
+                self?.isLoading = true
+                self?.weatherService.fetchWeatherForLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                    .sink(receiveCompletion: { completion in
+                        self?.isLoading = false
+                        switch completion {
+                        case .failure(let error):
+                            self?.errorMessage = error.localizedDescription
+                        case .finished:
+                            break
+                        }
+                    }, receiveValue: { weather in
+                        self?.weather = weather
+                        self?.cityName = weather.name
+                        self?.saveLastSearchedCity()
+                    })
+                    .store(in: &self!.cancellables)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func saveLastSearchedCity() {
+        UserDefaults.standard.setValue(cityName, forKey: "LastSearchedCity")
+    }
+    
+    private func loadLastSearchedCity() {
+        if let lastCity = UserDefaults.standard.string(forKey: "LastSearchedCity") {
+            cityName = lastCity
+            searchWeather()
+        }
+    }
+}
+
 
 class LocationManager: NSObject, ObservableObject {
-    private let manager = CLLocationManager()
+    let manager = CLLocationManager()
     @Published var location: CLLocationCoordinate2D?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published var locationError: Error?
@@ -16,19 +117,47 @@ class LocationManager: NSObject, ObservableObject {
         manager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
-    func requestLocation() {
+    func requestLocationPermission() {
         manager.requestWhenInUseAuthorization()
-        manager.requestLocation()
+        authorizationStatus = manager.authorizationStatus
     }
+    
+    func requestLocation() {
+        switch authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.requestLocation()
+        case .denied, .restricted:
+            print("Location access denied or restricted.")
+            // Show a user prompt to guide them to settings
+        case .notDetermined:
+            print("Requesting location permission...")
+            manager.requestWhenInUseAuthorization()
+        default:
+            print("Location access is set to 'When I Share' or unknown.")
+            // You might want to guide the user to settings
+        }
+    }
+
+
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
-        if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
+        print("Authorization status changed: \(authorizationStatus.rawValue)")
+        
+        switch authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("Authorization granted, requesting location...")
             manager.requestLocation()
+        case .denied:
+            print("Location permission denied.")
+            // Optionally handle this in the UI
+        default:
+            break
         }
     }
+
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
@@ -38,6 +167,10 @@ extension LocationManager: CLLocationManagerDelegate {
         locationError = error
     }
 }
+
+
+
+import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: WeatherViewModel
@@ -80,10 +213,19 @@ struct ContentView: View {
     private var searchBar: some View {
         HStack {
             TextField("Enter US city name", text: $viewModel.cityName, onCommit: {
-                viewModel.searchWeather()
+                if viewModel.cityName.count <= 100 {
+                    viewModel.searchWeather()
+                } else {
+                    // Handle text length exceeding limit (optional)
+                }
             })
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal)
+            .onChange(of: viewModel.cityName) {
+                if viewModel.cityName.count > 100 {
+                    viewModel.cityName = String(viewModel.cityName.prefix(100))
+                }
+            }
             
             Button(action: {
                 viewModel.searchWeather()
@@ -95,6 +237,7 @@ struct ContentView: View {
         }
         .padding(.top)
     }
+
     
     private func weatherInfo(weather: WeatherResponse, geometry: GeometryProxy) -> some View {
         VStack(spacing: 20) {
@@ -141,7 +284,11 @@ struct ContentView: View {
     
     private var locationButton: some View {
         Button(action: {
-            viewModel.searchWeatherByLocation()
+            if viewModel.locationManager.authorizationStatus == .notDetermined {
+                viewModel.locationManager.requestLocationPermission()
+            } else {
+                viewModel.searchWeatherByLocation()
+            }
         }) {
             HStack {
                 Image(systemName: "location.fill")
