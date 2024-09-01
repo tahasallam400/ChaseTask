@@ -39,8 +39,6 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-
-
 struct ContentView: View {
     @StateObject private var viewModel: WeatherViewModel
     
@@ -51,26 +49,28 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
-                VStack {
-                    Spacer()
-                    searchBar
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .scaleEffect(1.5)
-                            .padding()
-                    } else if let weather = viewModel.weather {
-                        weatherInfo(weather: weather, geometry: geometry)
-                    } else {
+                ScrollView {
+                    VStack {
+                        Spacer()
+                        searchBar
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .scaleEffect(1.5)
+                                .padding()
+                        } else if let weather = viewModel.weather {
+                            weatherInfo(weather: weather, geometry: geometry)
+                        } else {
+                            Spacer()
+                        }
+                        Spacer()
+                        locationButton
                         Spacer()
                     }
-                    Spacer()
-                    locationButton
-                    Spacer()
+                    .frame(width: geometry.size.width * 0.9)
+                    .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
+                    .navigationTitle("Weather App")
+                    .navigationViewStyle(StackNavigationViewStyle())
                 }
-                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.9)
-                .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
-                .navigationTitle("Weather App")
-                .navigationViewStyle(StackNavigationViewStyle())
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
