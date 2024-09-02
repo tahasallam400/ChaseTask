@@ -2,7 +2,7 @@ import CoreLocation
 import Combine
 import SwiftUI
 import Foundation
-import Network
+
 
 class WeatherViewModel: ObservableObject {
     // Input
@@ -78,7 +78,7 @@ class WeatherViewModel: ObservableObject {
         }
     }
     
-    private func bindLocationUpdates() {
+     func bindLocationUpdates() {
         self.noDataFound = false
         locationManager.$location
             .compactMap { $0 }
@@ -115,7 +115,7 @@ class WeatherViewModel: ObservableObject {
         }
     }
     
-    private func setupReachability() {
+    func setupReachability() {
         reachability.startMonitoring { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
@@ -133,27 +133,3 @@ class WeatherViewModel: ObservableObject {
     }
 }
 
-class Reachability {
-    private let monitor = NWPathMonitor()
-    private let queue = DispatchQueue(label: "ReachabilityMonitor")
-    
-    enum Status {
-        case connected
-        case notConnected
-    }
-    
-    func startMonitoring(statusChangeHandler: @escaping (Status) -> Void) {
-        monitor.pathUpdateHandler = { path in
-            if path.status == .satisfied {
-                statusChangeHandler(.connected)
-            } else {
-                statusChangeHandler(.notConnected)
-            }
-        }
-        monitor.start(queue: queue)
-    }
-    
-    func stopMonitoring() {
-        monitor.cancel()
-    }
-}

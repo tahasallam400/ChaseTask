@@ -1,5 +1,7 @@
 import XCTest
 import Combine
+import Foundation
+
 @testable import ChaseTask
 
 class WeatherServiceTests: XCTestCase {
@@ -161,13 +163,6 @@ class WeatherServiceTests: XCTestCase {
     }
 }
 
-// MARK: - Mock Classes
-
-import Combine
-import Foundation
-
-import Combine
-import Foundation
 
 // Define a protocol that your mock will conform to
 
