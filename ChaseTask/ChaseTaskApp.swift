@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+
 @main
 struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            let locationManager = LocationManager()
-            let weatherService = WeatherService()
-            let weatherViewModel = WeatherViewModel(weatherService: weatherService, locationManager: locationManager)
-            ContentView(viewModel: weatherViewModel)
+            ContentView(viewModel: createWeatherViewModel())
         }
+    }
+    private func createWeatherViewModel() -> WeatherViewModel {
+        let locationManager = LocationManager()
+        let weatherService = WeatherService()
+        return WeatherViewModel(weatherService: weatherService, locationManager: locationManager)
     }
 }

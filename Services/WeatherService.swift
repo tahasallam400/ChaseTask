@@ -14,8 +14,6 @@ protocol WeatherServiceProtocol {
     func fetchWeatherForLocation(latitude: Double, longitude: Double) -> AnyPublisher<WeatherResponse, Error>
 }
 
-// MARK: - Weather Service Implementation
-
 class WeatherService: WeatherServiceProtocol {
     private let apiKey = "9e4d4728a5ebfd6b2bc1eceb7c795f22"
     private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
