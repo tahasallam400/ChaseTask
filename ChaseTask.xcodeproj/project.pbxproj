@@ -10,6 +10,8 @@
 		F27E58612C85499100ADC260 /* WeatherResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58602C85499100ADC260 /* WeatherResponseTests.swift */; };
 		F27E58632C8549A100ADC260 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58622C8549A100ADC260 /* MainTests.swift */; };
 		F27E58652C8549AF00ADC260 /* WeatherDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58642C8549AF00ADC260 /* WeatherDetailTests.swift */; };
+		F27E58682C854F3300ADC260 /* WeatherViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58672C854F3300ADC260 /* WeatherViewModelTest.swift */; };
+		F27E586B2C85527A00ADC260 /* WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E586A2C85527A00ADC260 /* WeatherServiceTests.swift */; };
 		F2926EC32C83C3C300C65A71 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */; };
 		F2926EC52C83C3D400C65A71 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC42C83C3D400C65A71 /* Main.swift */; };
 		F2926EC72C83C3F900C65A71 /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */; };
@@ -45,6 +47,8 @@
 		F27E58602C85499100ADC260 /* WeatherResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponseTests.swift; sourceTree = "<group>"; };
 		F27E58622C8549A100ADC260 /* MainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTests.swift; sourceTree = "<group>"; };
 		F27E58642C8549AF00ADC260 /* WeatherDetailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailTests.swift; sourceTree = "<group>"; };
+		F27E58672C854F3300ADC260 /* WeatherViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTest.swift; sourceTree = "<group>"; };
+		F27E586A2C85527A00ADC260 /* WeatherServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceTests.swift; sourceTree = "<group>"; };
 		F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		F2926EC42C83C3D400C65A71 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
@@ -95,6 +99,22 @@
 				F27E58642C8549AF00ADC260 /* WeatherDetailTests.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F27E58662C854F1900ADC260 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F27E58672C854F3300ADC260 /* WeatherViewModelTest.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F27E58692C85526900ADC260 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F27E586A2C85527A00ADC260 /* WeatherServiceTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		F2926EC02C83C2AE00C65A71 /* Models */ = {
@@ -168,6 +188,8 @@
 		F2E2BD292C82AE4A00A06569 /* ChaseTaskTests */ = {
 			isa = PBXGroup;
 			children = (
+				F27E58692C85526900ADC260 /* Services */,
+				F27E58662C854F1900ADC260 /* ViewModel */,
 				F27E585F2C85496D00ADC260 /* Models */,
 				F2E2BD2A2C82AE4A00A06569 /* ChaseTaskTests.swift */,
 			);
@@ -329,6 +351,8 @@
 			files = (
 				F2E2BD2B2C82AE4A00A06569 /* ChaseTaskTests.swift in Sources */,
 				F27E58652C8549AF00ADC260 /* WeatherDetailTests.swift in Sources */,
+				F27E586B2C85527A00ADC260 /* WeatherServiceTests.swift in Sources */,
+				F27E58682C854F3300ADC260 /* WeatherViewModelTest.swift in Sources */,
 				F27E58632C8549A100ADC260 /* MainTests.swift in Sources */,
 				F27E58612C85499100ADC260 /* WeatherResponseTests.swift in Sources */,
 			);

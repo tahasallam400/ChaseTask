@@ -1,12 +1,6 @@
-//
-//  WeatherService.swift
-//  ChaseTask
-//
-//  Created by Taha Metwally on 31/8/2024.
-//
-
 import Foundation
 import Combine
+
 // MARK: - Weather Service Protocol
 
 protocol WeatherServiceProtocol {
@@ -14,12 +8,46 @@ protocol WeatherServiceProtocol {
     func fetchWeatherForLocation(latitude: Double, longitude: Double) -> AnyPublisher<WeatherResponse, Error>
 }
 
+protocol URLSessionProtocol {
+    func dataTaskPublisher(for url: URL) -> URLSession.DataTaskPublisher
+}
+
+protocol URLCreatorProtocol {
+    func makeURL(query: [String: String]) -> URL?
+}
+
+extension URLSession: URLSessionProtocol {}
+
+class DefaultURLCreator: URLCreatorProtocol {
+    private let baseURL: String
+    private let apiKey: String
+    
+    init(baseURL: String, apiKey: String) {
+        self.baseURL = baseURL
+        self.apiKey = apiKey
+    }
+    
+    func makeURL(query: [String: String]) -> URL? {
+        var components = URLComponents(string: baseURL)
+        var queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value) }
+        queryItems.append(URLQueryItem(name: "appid", value: apiKey))
+        queryItems.append(URLQueryItem(name: "units", value: "metric"))
+        components?.queryItems = queryItems
+        return components?.url
+    }
+}
+
 class WeatherService: WeatherServiceProtocol {
-    private let apiKey = "9e4d4728a5ebfd6b2bc1eceb7c795f22"
-    private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
+    private let urlSession: URLSessionProtocol
+    private let urlCreator: URLCreatorProtocol
+    
+    init(urlSession: URLSessionProtocol = URLSession.shared, urlCreator: URLCreatorProtocol) {
+        self.urlSession = urlSession
+        self.urlCreator = urlCreator
+    }
     
     func fetchWeather(for city: String) -> AnyPublisher<WeatherResponse, Error> {
-        guard let url = makeURL(query: ["q": city]) else {
+        guard let url = urlCreator.makeURL(query: ["q": city]) else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
@@ -31,24 +59,15 @@ class WeatherService: WeatherServiceProtocol {
             "lat": "\(latitude)",
             "lon": "\(longitude)"
         ]
-        guard let url = makeURL(query: query) else {
+        guard let url = urlCreator.makeURL(query: query) else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
         return fetch(url: url)
     }
     
-    private func makeURL(query: [String: String]) -> URL? {
-        var components = URLComponents(string: baseURL)
-        var queryItems = query.map { URLQueryItem(name: $0.key, value: $0.value) }
-        queryItems.append(URLQueryItem(name: "appid", value: apiKey))
-        queryItems.append(URLQueryItem(name: "units", value: "metric"))
-        components?.queryItems = queryItems
-        return components?.url
-    }
-    
     private func fetch(url: URL) -> AnyPublisher<WeatherResponse, Error> {
-        URLSession.shared.dataTaskPublisher(for: url)
+        urlSession.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: WeatherResponse.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
