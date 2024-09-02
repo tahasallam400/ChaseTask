@@ -9,14 +9,26 @@ protocol WeatherServiceProtocol {
 }
 
 protocol URLSessionProtocol {
-    func dataTaskPublisher(for url: URL) -> URLSession.DataTaskPublisher
+    func dataTaskPublisher(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
 }
 
 protocol URLCreatorProtocol {
     func makeURL(query: [String: String]) -> URL?
 }
 
-extension URLSession: URLSessionProtocol {}
+// Wrapper class around URLSession to conform to URLSessionProtocol
+class URLSessionWrapper: URLSessionProtocol {
+    private let session: URLSession
+    
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
+    func dataTaskPublisher(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError> {
+        return session.dataTaskPublisher(for: url)
+            .eraseToAnyPublisher()
+    }
+}
 
 class DefaultURLCreator: URLCreatorProtocol {
     private let baseURL: String
@@ -41,7 +53,7 @@ class WeatherService: WeatherServiceProtocol {
     private let urlSession: URLSessionProtocol
     private let urlCreator: URLCreatorProtocol
     
-    init(urlSession: URLSessionProtocol = URLSession.shared, urlCreator: URLCreatorProtocol) {
+    init(urlSession: URLSessionProtocol = URLSessionWrapper(), urlCreator: URLCreatorProtocol) {
         self.urlSession = urlSession
         self.urlCreator = urlCreator
     }
@@ -49,6 +61,7 @@ class WeatherService: WeatherServiceProtocol {
     func fetchWeather(for city: String) -> AnyPublisher<WeatherResponse, Error> {
         guard let url = urlCreator.makeURL(query: ["q": city]) else {
             return Fail(error: URLError(.badURL))
+                .mapError { $0 as Error }
                 .eraseToAnyPublisher()
         }
         return fetch(url: url)
@@ -61,16 +74,18 @@ class WeatherService: WeatherServiceProtocol {
         ]
         guard let url = urlCreator.makeURL(query: query) else {
             return Fail(error: URLError(.badURL))
+                .mapError { $0 as Error }
                 .eraseToAnyPublisher()
         }
         return fetch(url: url)
     }
     
     private func fetch(url: URL) -> AnyPublisher<WeatherResponse, Error> {
-        urlSession.dataTaskPublisher(for: url)
+        return urlSession.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: WeatherResponse.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
 }

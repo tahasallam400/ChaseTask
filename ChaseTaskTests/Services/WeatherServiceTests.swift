@@ -166,34 +166,30 @@ class WeatherServiceTests: XCTestCase {
 import Combine
 import Foundation
 
+import Combine
+import Foundation
+
+// Define a protocol that your mock will conform to
+
 class MockURLSession: URLSessionProtocol {
     var stubbedResult: Result<(data: Data, response: URLResponse), URLError>?
 
-    func dataTaskPublisher(for url: URL) -> URLSession.DataTaskPublisher {
+    func dataTaskPublisher(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError> {
         guard let result = stubbedResult else {
             fatalError("Stub result not set!")
         }
 
-        let publisher: AnyPublisher<(data: Data, response: URLResponse), URLError>
-
         switch result {
         case .success(let (data, response)):
-            publisher = Just((data: data, response: response))
+            return Just((data: data, response: response))
                 .setFailureType(to: URLError.self)
                 .eraseToAnyPublisher()
         case .failure(let error):
-            publisher = Fail(error: error)
+            return Fail(error: error)
                 .eraseToAnyPublisher()
         }
-
-        // Create a custom publisher that mimics URLSession.DataTaskPublisher
-        return publisher
-            .map { ($0.data, $0.response) }
-            .eraseToAnyPublisher() as! URLSession.DataTaskPublisher
     }
 }
-
-
 
 class MockURLCreator: URLCreatorProtocol {
     var stubbedURL: URL?
