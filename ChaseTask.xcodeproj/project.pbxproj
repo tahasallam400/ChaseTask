@@ -13,6 +13,8 @@
 		F27E58682C854F3300ADC260 /* WeatherViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58672C854F3300ADC260 /* WeatherViewModelTest.swift */; };
 		F27E586B2C85527A00ADC260 /* WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E586A2C85527A00ADC260 /* WeatherServiceTests.swift */; };
 		F27E586F2C8576B200ADC260 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E586D2C8575E400ADC260 /* Reachability.swift */; };
+		F27E58722C85F51C00ADC260 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58702C85F4E000ADC260 /* LocationManager.swift */; };
+		F27E58752C85F92C00ADC260 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27E58742C85F92C00ADC260 /* ActivityIndicator.swift */; };
 		F2926EC32C83C3C300C65A71 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */; };
 		F2926EC52C83C3D400C65A71 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC42C83C3D400C65A71 /* Main.swift */; };
 		F2926EC72C83C3F900C65A71 /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */; };
@@ -22,7 +24,6 @@
 		F2E2BD1C2C82AE4A00A06569 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD1B2C82AE4A00A06569 /* ContentView.swift */; };
 		F2E2BD1E2C82AE4A00A06569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E2BD1D2C82AE4A00A06569 /* Assets.xcassets */; };
 		F2E2BD212C82AE4A00A06569 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E2BD202C82AE4A00A06569 /* Preview Assets.xcassets */; };
-		F2E2BD2B2C82AE4A00A06569 /* ChaseTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD2A2C82AE4A00A06569 /* ChaseTaskTests.swift */; };
 		F2E2BD352C82AE4B00A06569 /* ChaseTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD342C82AE4B00A06569 /* ChaseTaskUITests.swift */; };
 		F2E2BD372C82AE4B00A06569 /* ChaseTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2BD362C82AE4B00A06569 /* ChaseTaskUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,8 @@
 		F27E58672C854F3300ADC260 /* WeatherViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTest.swift; sourceTree = "<group>"; };
 		F27E586A2C85527A00ADC260 /* WeatherServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceTests.swift; sourceTree = "<group>"; };
 		F27E586D2C8575E400ADC260 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F27E58702C85F4E000ADC260 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		F27E58742C85F92C00ADC260 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		F2926EC22C83C3C300C65A71 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		F2926EC42C83C3D400C65A71 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		F2926EC62C83C3F900C65A71 /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		F2E2BD1D2C82AE4A00A06569 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2E2BD202C82AE4A00A06569 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F2E2BD262C82AE4A00A06569 /* ChaseTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChaseTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2E2BD2A2C82AE4A00A06569 /* ChaseTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseTaskTests.swift; sourceTree = "<group>"; };
 		F2E2BD302C82AE4B00A06569 /* ChaseTaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChaseTaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E2BD342C82AE4B00A06569 /* ChaseTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseTaskUITests.swift; sourceTree = "<group>"; };
 		F2E2BD362C82AE4B00A06569 /* ChaseTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -123,8 +125,19 @@
 			isa = PBXGroup;
 			children = (
 				F27E586D2C8575E400ADC260 /* Reachability.swift */,
+				F27E58702C85F4E000ADC260 /* LocationManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F27E58732C85F7B900ADC260 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F2E2BD1B2C82AE4A00A06569 /* ContentView.swift */,
+				F2E2BD192C82AE4A00A06569 /* ChaseTaskApp.swift */,
+				F27E58742C85F92C00ADC260 /* ActivityIndicator.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F2926EC02C83C2AE00C65A71 /* Models */ = {
@@ -156,11 +169,12 @@
 		F2E2BD0D2C82AE4900A06569 = {
 			isa = PBXGroup;
 			children = (
-				F27E586C2C8575D300ADC260 /* Utilities */,
-				F2926ECA2C83C9E800C65A71 /* ViewModel */,
-				F2926EC12C83C2C100C65A71 /* Services */,
 				F2926EC02C83C2AE00C65A71 /* Models */,
-				F2E2BD182C82AE4A00A06569 /* ChaseTask */,
+				F27E58732C85F7B900ADC260 /* Views */,
+				F2926ECA2C83C9E800C65A71 /* ViewModel */,
+				F27E586C2C8575D300ADC260 /* Utilities */,
+				F2926EC12C83C2C100C65A71 /* Services */,
+				F2E2BD182C82AE4A00A06569 /* Assets */,
 				F2E2BD292C82AE4A00A06569 /* ChaseTaskTests */,
 				F2E2BD332C82AE4B00A06569 /* ChaseTaskUITests */,
 				F2E2BD172C82AE4A00A06569 /* Products */,
@@ -177,15 +191,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F2E2BD182C82AE4A00A06569 /* ChaseTask */ = {
+		F2E2BD182C82AE4A00A06569 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				F2E2BD192C82AE4A00A06569 /* ChaseTaskApp.swift */,
-				F2E2BD1B2C82AE4A00A06569 /* ContentView.swift */,
 				F2E2BD1D2C82AE4A00A06569 /* Assets.xcassets */,
 				F2E2BD1F2C82AE4A00A06569 /* Preview Content */,
 			);
-			path = ChaseTask;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		F2E2BD1F2C82AE4A00A06569 /* Preview Content */ = {
@@ -202,7 +214,6 @@
 				F27E58692C85526900ADC260 /* Services */,
 				F27E58662C854F1900ADC260 /* ViewModel */,
 				F27E585F2C85496D00ADC260 /* Models */,
-				F2E2BD2A2C82AE4A00A06569 /* ChaseTaskTests.swift */,
 			);
 			path = ChaseTaskTests;
 			sourceTree = "<group>";
@@ -352,8 +363,10 @@
 				F2926ECC2C83CB0000C65A71 /* WeatherViewModel.swift in Sources */,
 				F2926EC52C83C3D400C65A71 /* Main.swift in Sources */,
 				F2926EC92C83C98000C65A71 /* WeatherService.swift in Sources */,
+				F27E58752C85F92C00ADC260 /* ActivityIndicator.swift in Sources */,
 				F27E586F2C8576B200ADC260 /* Reachability.swift in Sources */,
 				F2E2BD1A2C82AE4A00A06569 /* ChaseTaskApp.swift in Sources */,
+				F27E58722C85F51C00ADC260 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +374,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E2BD2B2C82AE4A00A06569 /* ChaseTaskTests.swift in Sources */,
 				F27E58652C8549AF00ADC260 /* WeatherDetailTests.swift in Sources */,
 				F27E586B2C85527A00ADC260 /* WeatherServiceTests.swift in Sources */,
 				F27E58682C854F3300ADC260 /* WeatherViewModelTest.swift in Sources */,
@@ -521,7 +533,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ChaseTask/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Assets/Preview Content\"";
 				DEVELOPMENT_TEAM = 74B95GHWXG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -550,7 +562,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ChaseTask/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Assets/Preview Content\"";
 				DEVELOPMENT_TEAM = 74B95GHWXG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
